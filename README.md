@@ -67,7 +67,7 @@ All 10 required course deliverables are completely implemented, verified, and ca
 | **Deliverable 7** | Gate Parity Plot (Log-scale, all gates) | [`plots/gates/gate_parity_all.png`](file:///C:/Users/Hi/Leakage_Estimation_DVD/plots/gates/gate_parity_all.png) |
 | **Deliverable 8** | Test-Circuit Results (3-Bit CLA table & parity) | Table: [`deliverable8_test_circuit_results.csv`](file:///C:/Users/Hi/Leakage_Estimation_DVD/deliverable8_test_circuit_results.csv)<br>Parity: [`plots/test_circuit_parity.png`](file:///C:/Users/Hi/Leakage_Estimation_DVD/plots/test_circuit_parity.png)<br>Comparison: [`plots/test_circuit_comparison.png`](file:///C:/Users/Hi/Leakage_Estimation_DVD/plots/test_circuit_comparison.png) |
 | **Deliverable 9** | Code Pipeline Scripts | [`generate_dataset.py`](file:///C:/Users/Hi/Leakage_Estimation_DVD/generate_dataset.py), [`run_data_check.py`](file:///C:/Users/Hi/Leakage_Estimation_DVD/run_data_check.py), [`train_models.py`](file:///C:/Users/Hi/Leakage_Estimation_DVD/train_models.py), [`gate_validation.py`](file:///C:/Users/Hi/Leakage_Estimation_DVD/gate_validation.py), [`circuit_validation.py`](file:///C:/Users/Hi/Leakage_Estimation_DVD/circuit_validation.py) |
-| **Deliverable 10** | Comprehensive Technical Report | [`report.tex`](file:///C:/Users/Hi/Leakage_Estimation_DVD/report.tex) |
+| **Deliverable 10** | Comprehensive Technical Report | Source: [`report.tex`](file:///C:/Users/Hi/Leakage_Estimation_DVD/report.tex)<br>Compiled PDF: [`report.pdf`](file:///C:/Users/Hi/Leakage_Estimation_DVD/report.pdf) |
 
 ---
 
@@ -93,7 +93,7 @@ All 10 required course deliverables are completely implemented, verified, and ca
 - **Approach A (Calibrated + Loading Factor $\kappa \approx 0.936 - 0.951$):**
   - Compensates for the physical $2\text{--}5\,\text{mV}$ rail droop across cascaded gates.
   - Achieves **$0.93\%$** median error on vector medians.
-  - Reaches **$98.17\% - 99.06\%$ Mean Accuracy** across input vectors (peaking at **$99.25\%$** on individual vectors), satisfying the course target of up to $99\%$ accuracy.
+  - Achieves **$98.17\%$ Mean Accuracy** across input vectors across the 200 corners (peaking at **$99.25\%$** on individual vectors).
   - Provides a **$>10^4\times$ speedup** over full SPICE matrix solving.
 
 ---
