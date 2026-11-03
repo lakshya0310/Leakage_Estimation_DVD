@@ -560,11 +560,26 @@ def main():
 
   df_results = pd.DataFrame(results_records)
   df_results.to_csv("deliverable6_gate_results.csv", index=False)
+
+  # Approach A: Save systematic gate calibration factors for hierarchical circuit composition
+  gate_calibs = {}
+  for _, r in df_results.iterrows():
+    g = r["Gate"]
+    inp = str(r["Inputs"])
+    if len(inp) == 1 and g != "INV":
+      inp = "0" + inp
+    gate_calibs[f"{g}_{inp}"] = float(r["SPICE Median (A)"] / r["ML Median (A)"]) if r["ML Median (A)"] > 0 else 1.0
+
+  import json
+  with open("gate_calibrations.json", "w") as f:
+    json.dump(gate_calibs, f, indent=2)
+
   print("\n" + "=" * 85)
   print("DELIVERABLE 6: GATE RESULTS TABLE")
   print("=" * 85)
   print(df_results.to_string(index=False))
   print("\nSaved gate table to: deliverable6_gate_results.csv")
+  print("Saved gate calibration factors to: gate_calibrations.json")
   print("Saved gate parity plots to: plots/gates/")
   print("Saved combined gate parity plot to: plots/gates/gate_parity_all.png")
   print("=" * 85)
