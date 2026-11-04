@@ -87,14 +87,24 @@ All 10 required course deliverables are completely implemented, verified, and ca
 - **Most Accurate Gate:** NAND2 `10` with **$4.21\%$** median error.
 - **Least Accurate Gate:** NOR2 `01` with **$19.67\%$** median error (governed by PMOS stack body-effect sensitivity).
 
-### 4.3 Complex 3-Bit CLA Validation (Part C - Approach A)
-- Evaluated all $2^7 = 128$ input vectors across PVT corners.
-- **Standard Raw Hierarchical Sum:** Ignores inter-gate loading and intermediate rail droop, giving an average error of $11.41\%$ (Mean Accuracy: **$88.59\%$**).
-- **Approach A (Calibrated + Loading Factor $\kappa \approx 0.936 - 0.951$):**
-  - Compensates for the physical $2\text{--}5\,\text{mV}$ rail droop across cascaded gates.
-  - Achieves **$0.93\%$** median error on vector medians.
-  - Achieves **$98.17\%$ Mean Accuracy** across input vectors across the 200 corners (peaking at **$99.25\%$** on individual vectors).
-  - Provides a **$>10^4\times$ speedup** over full SPICE matrix solving.
+### 4.3 Complex 3-Bit CLA Validation (Part C - Deliverable 8)
+Evaluated all $2^7 = 128$ input vector combinations across PVT variation corners:
+- **Standard Raw Hierarchical Sum:** Ignores inter-gate loading and intermediate rail droop, assuming ideal supply rails. Result: Mean Accuracy **$88.59\%$** (Median Error across corners: $12.26\%$).
+- **Approach A (Calibrated + Global Loading Factor $\kappa = 0.9363$):** Compensates for aggregate rail droop and fanout with a global scalar factor. Result: Mean Vector Accuracy **$98.17\%$** (Median Vector Error: $1.58\%$, peak vector accuracy $99.25\%$).
+- **Approach B (Stage-Aware Internal Voltage Estimation):** Structural, white-box physical formulation tracking Directed Acyclic Graph (DAG) topological logic depth ($d = 0$ to $6$), net fanout ($F = 1$ to $4$), and temperature-dependent subthreshold slope $S(T)$. Result: Mean Vector Accuracy **$98.72\%$** (Median Vector Error: **$0.52\%$**, peak vector accuracy **$100.00\%$**).
+
+#### 3-Way Test Circuit Benchmark Summary:
+| Metric | Standard Raw Hierarchical Sum | Approach A (Global Loading) | Approach B (Stage-Aware Voltage) |
+| :--- | :---: | :---: | :---: |
+| **SPICE Median Leakage** | $1.2429 \times 10^{-5}\,\text{A}$ | $1.2429 \times 10^{-5}\,\text{A}$ | $1.2429 \times 10^{-5}\,\text{A}$ |
+| **Predicted Median Leakage** | $1.2218 \times 10^{-5}\,\text{A}$ | $1.2429 \times 10^{-5}\,\text{A}$ | $1.2477 \times 10^{-5}\,\text{A}$ |
+| **Overall Bias** | $-2.108 \times 10^{-7}\,\text{A}$ | $+1.250 \times 10^{-6}\,\text{A}$ | $+1.712 \times 10^{-7}\,\text{A}$ |
+| **Median Error (Corners)** | $12.26\%$ | $11.51\%$ | $12.49\%$ |
+| **Vector Mean Accuracy** | **$88.59\%$** | **$98.17\%$** | **$98.72\%$** |
+| **Median Vector Error** | $2.56\%$ | $1.58\%$ | **$0.52\%$** |
+| **Peak Vector Accuracy** | $90.13\%$ | $99.25\%$ | **$100.00\%$** |
+| **Physical Formulation** | Ideal Rails | Empirical Multiplier ($\kappa$) | **White-Box DAG Stage-Aware** |
+| **Evaluation Speedup** | $\mathbf{> 10^4\times}$ | $\mathbf{> 10^4\times}$ | $\mathbf{> 10^4\times}$ |
 
 ---
 
